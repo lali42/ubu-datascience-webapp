@@ -17,4 +17,5 @@ cd webapp
 python mange.py startapp myapp
 python mange.py makemigrations
 python mange.py migrate
+python mange.py createsuperuser
 python mange.py runserver
