@@ -1,7 +1,6 @@
 from django.db import models
 
 # Create your models here.
-
 class Species(models.Model):
     sid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=500)
@@ -9,20 +8,19 @@ class Species(models.Model):
     def __str__(self):
         return self.name
 
-class feature(models.Model):
+class Feature(models.Model):
     fid = models.AutoField(primary_key=True)
-    #กลีบหลัก
-    sepel_length = models.FloatField()
-    sepel_width = models.FloatField()
-    #กลีบรอง
+    # กลีบหลัก
+    sepal_length = models.FloatField()
+    sepal_width = models.FloatField()
+    # กลีบรอง
     petal_length = models.FloatField()
-    petal_widtth = models.FloatField()
+    petal_width = models.FloatField()
 
     species = models.ForeignKey(Species, on_delete=models.CASCADE)
 
     def __str__(self):
         return str([
-            self.sepel_length, self.sepel_width,
-            self.petal_length, self.petal_widtth
+            self.sepal_length, self.sepal_width,
+            self.petal_length, self.petal_width
         ])
-

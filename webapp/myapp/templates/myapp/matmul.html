@@ -1,33 +1,28 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
     <head>
 
     </head>
-
     <body>
-        <center><h1>Wemcome to Matmul</h1></center>
+        <div style="text-align: center;">
+            <h1>Welcome to Matmul</h1>
+        </div>
         <form action="" method="POST">
             {% csrf_token %}
             <div style="text-align: center;">
                 <span>Matrix A:</span>
-                <textarea rows=6 cols="60" name="A">{{A}}</textarea>
-
+                <textarea rows=6 cols=60 name="A">{{A}}</textarea>
                 <span>Matrix B:</span>
-                <textarea rows=6 cols="60" name="B">{{B}}</textarea>
-            </div><br>
-
+                <textarea rows=6 cols=60 name="B">{{B}}</textarea>
+            </div>
             <div style="text-align: center;">
                 <button type="submit">Multiply</button>
             </div>
-
         </form>
-
-        <br><div style="text-align: center;">
-            <textarea rows="6" cols="60" name="C">{{C}}</textarea>
+        <div style="text-align: center;">
+            <textarea rows=6 cols=60 name="C">{{C}}</textarea>
         </div>
-
-        <div><center><br>
-            <table border="1" >
+        <div style="text-align: center;">
+            <table border="1">
                 {% for r in C %}
                 <tr>
                     {% for c in r %}
@@ -35,7 +30,7 @@
                     {% endfor %}
                 </tr>
                 {% endfor %}
-            </center></table>
+            </table>
         </div>
     </body>
 </html>

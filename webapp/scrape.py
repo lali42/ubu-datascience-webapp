@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def scrape_prime_ministers():
     url = 'https://en.wikipedia.org/wiki/List_of_Prime_Ministers_of_Thailand'
     html = requests.get(url).text
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'lxml')
 
     tables = soup.find_all('table')
 

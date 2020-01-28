@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.core import serializers
+from django.http import JsonResponse
 
 from .models import Species, Feature
 
@@ -16,18 +18,25 @@ def index(req):
         sepal_width = float(req.POST['sepal_width'])
         petal_length = float(req.POST['petal_length'])
         petal_width = float(req.POST['petal_width'])
-        from sklearn.svm import LinearSVC 
-        model = LinearSVC() 
-        features = Feature.objects.all()
-        a, t = [], []
-        for f in features:
-            a.append([ f.sepal_length, f.sepal_width, f.petal_length, f.petal_width ])
-            t.append(f.species.sid-1)
+        print(sepal_length)
+        print(sepal_width)
+        print(petal_length)
+        print(petal_width)
+
+        # from sklearn.svm import LinearSVC
+        # model = LinearSVC() 
+        # features = Feature.objects.all()
+        # a, t = [], []
+        # for f in features:
+        #     a.append([ f.sepal_length, f.sepal_width, f.petal_length, f.petal_width ])
+        #     t.append(f.species.sid-1)
+
+        # load models
         import numpy as np
-        fm = np.array(a)
-        tv = np.array(t)
-        model.fit(fm, tv)
-        x = model.predict([ [sepal_length, sepal_width, petal_length, petal_width] ])
+        fm = np.array([ [sepal_length, sepal_width, petal_length, petal_width] ])
+        from joblib import load
+        model = load('irisapp/static/iris.model')
+        x = model.predict(fm)
         print( type(x) )
         print( type(x[0]) )
         result = Species.objects.get(pk=x[0]+1)
@@ -40,3 +49,13 @@ def index(req):
         'petal_length': petal_length,
         'petal_width': petal_width,
     })
+
+def api_species(req):
+    # 1. JsonResponse() // ภากร
+    # 2. serializer // 
+    # 3. json.dumps() // Nim, 
+    import json
+    species = Species.objects.all();
+    data = serializers.serialize('json', species, fields=('sid', 'name'))
+    data = json.loads(data)
+    return JsonResponse(data, safe=False)
